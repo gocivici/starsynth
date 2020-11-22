@@ -20,7 +20,7 @@ note_A = oscbuildparse.OSCMessage("/note_A", None, ["text"])
 note_Bb = oscbuildparse.OSCMessage("/note_Bb", None, ["text"])
 note_B = oscbuildparse.OSCMessage("/note_B", None, ["text"])
 
-#import imutilsss
+#import imutils
 CONNECTIVITY = 4
 DRAW_CIRCLE_RADIUS = 5
 imageorg = cv2.imread('testimage.jpg')
