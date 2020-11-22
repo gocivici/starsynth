@@ -5,7 +5,8 @@ from numpy import savetxt
 from osc4py3.as_eventloop import *
 from osc4py3 import oscbuildparse
 
-#osc initialize
+#osc
+#github test
 osc_startup()
 osc_udp_client("127.0.0.1", 57120, "local")
 note_C = oscbuildparse.OSCMessage("/note_C", None, ["text"])
