@@ -9,7 +9,7 @@ from osc4py3 import oscbuildparse
 #github test
 osc_startup()
 osc_udp_client("127.0.0.1", 57120, "local")
-note_C = oscbuildparse.OSCMessage("/note_C", None, ["text"])
+note_C = oscbuildparse.OSCMessage("/note_C", None, ["C",440])
 note_Db = oscbuildparse.OSCMessage("/note_Db", None, ["text"])
 note_D = oscbuildparse.OSCMessage("/note_D", None, ["text"])
 note_Eb = oscbuildparse.OSCMessage("/note_Eb", None, ["text"])
@@ -94,7 +94,14 @@ def inArea(xp,yp,x1,y1,x2,y2,x3,y3):
         return False
 
 testCount = 0;
+ye = 1
 for x in range(int(height / 2)):
+
+    #ye = ye + (50/(2*numpy.pi*(x+1)))
+    #ye = (1/(2*numpy.pi*(x+1)))
+    #ye = ye + (1/(2*numpy.pi*(x+1)))
+    #print(x)
+    #print(ye)
     drawingImage = imageorg.copy()
     cv2.circle(drawingImage, (int(width / 2), int(height / 2)), x, (0, 255, 0), thickness=1)
     for distance in centerDistance:

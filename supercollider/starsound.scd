@@ -1,3 +1,4 @@
+s.boot;
 (
 (
 f = { |msg, time, addr|
@@ -116,3 +117,5 @@ OSCdef(\note_B,
 }, '/note_B')
 );
 )
+
+
