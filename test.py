@@ -10,7 +10,7 @@ from osc4py3 import oscbuildparse
 osc_startup()
 osc_udp_client("127.0.0.1", 57120, "local")
 
-note_C = oscbuildparse.OSCMessage("/notes", None, ["C",440])
+#note = oscbuildparse.OSCMessage("/notes", None, ["C",440])
 
 # note_Db = oscbuildparse.OSCMessage("/note_Db", None, ["text"])
 # note_D = oscbuildparse.OSCMessage("/note_D", None, ["text"])
@@ -23,15 +23,27 @@ note_C = oscbuildparse.OSCMessage("/notes", None, ["C",440])
 # note_A = oscbuildparse.OSCMessage("/note_A", None, ["text"])
 # note_Bb = oscbuildparse.OSCMessage("/note_Bb", None, ["text"])
 # note_B = oscbuildparse.OSCMessage("/note_B", None, ["text"])
-
+def resize(img):
+    width = 1024
+    height = 768
+    dim = (width, height)
+    resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+    return resized
 #import imutils
 CONNECTIVITY = 4
 DRAW_CIRCLE_RADIUS = 5
-imageorg = cv2.imread('testimage.jpg')
-imageorginal = cv2.imread('testimage.jpg')
+imageorg = cv2.imread('testimage3.jpg')
+cv2.namedWindow('image',cv2.WINDOW_NORMAL)
+#cv2.resizeWindow('image', 600,600)
+imageorg = resize(imageorg)
+#imageorginal = cv2.imread('testimage4.jpg')
 gray = cv2.cvtColor(imageorg, cv2.COLOR_BGR2GRAY)
 thresh = cv2.threshold(gray, 120, 255, cv2.THRESH_BINARY)[1]
 height, width, channels = imageorg.shape
+
+
+
+
 
 # perform a series of erosions and dilations to remove
 # any small blobs of noise from the thresholded image
@@ -110,8 +122,8 @@ for x in range(int(height / 2)):
         if (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int(width/2),0,int((width / 2) + int(height / 2) / 2), int(height / 2 - numpy.sqrt(3)*int(height / 2)/2)):
             cv2.circle(imageorg, (int(distance[0]),int(distance[1])), DRAW_CIRCLE_RADIUS, (0, 255, 0), thickness=1)
             testCount+=1
-            osc_send(note_C, "local")
-            osc_process()
+            note = oscbuildparse.OSCMessage("/notes", None, ["C",261.63,60])
+            osc_send(note, "local")
             #print(testCount)
             distance[3] = 1
         # elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int((width / 2) + int(height / 2) / 2), int(height / 2 - numpy.sqrt(3)*int(height / 2)/2),int((width / 2) + numpy.sqrt(3)*int(height / 2)/2), int(height / 2 - int(height / 2) / 2)):
@@ -121,7 +133,8 @@ for x in range(int(height / 2)):
         #     distance[3] = 1
         elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int((width / 2) + numpy.sqrt(3)*int(height / 2)/2), int(height / 2 - int(height / 2) / 2),int(width/2 + height / 2), int(height / 2)):
             cv2.circle(imageorg, (int(distance[0]),int(distance[1])), DRAW_CIRCLE_RADIUS, (50, 150, 20), thickness=1)
-            #osc_send(note_D, "local")
+            note = oscbuildparse.OSCMessage("/notes", None, ["D",293.66,62])
+            osc_send(note, "local")
             #osc_process()
             distance[3] = 1
         # elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int(width/2 + height / 2), int(height / 2),int((width / 2) + numpy.sqrt(3)*int(height / 2)/2), int(height / 2 + int(height / 2) / 2)):
@@ -131,12 +144,14 @@ for x in range(int(height / 2)):
         #     distance[3] = 1
         elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int((width / 2) + numpy.sqrt(3)*int(height / 2)/2), int(height / 2 + int(height / 2) / 2),int((width / 2) + int(height / 2) / 2), int(height / 2 + numpy.sqrt(3)*int(height / 2)/2)):
             cv2.circle(imageorg, (int(distance[0]),int(distance[1])), DRAW_CIRCLE_RADIUS, (200, 200, 50), thickness=1)
-            #osc_send(note_E, "local")
+            note = oscbuildparse.OSCMessage("/notes", None, ["E",329.63,64])
+            osc_send(note, "local")
             #osc_process()
             distance[3] = 1
         elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int((width / 2) + int(height / 2) / 2), int(height / 2 + numpy.sqrt(3)*int(height / 2)/2),int(width / 2),int(height)):
             cv2.circle(imageorg, (int(distance[0]),int(distance[1])), DRAW_CIRCLE_RADIUS, (200, 200, 200), thickness=1)
-            #osc_send(note_F, "local")
+            note = oscbuildparse.OSCMessage("/notes", None, ["F",349.23,65])
+            osc_send(note, "local")
             #osc_process()
             distance[3] = 1
         # elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int(width / 2),int(height),int((width / 2) - int(height / 2) / 2), int(height / 2 + numpy.sqrt(3)*int(height / 2)/2)):
@@ -146,7 +161,8 @@ for x in range(int(height / 2)):
         #     distance[3] = 1
         elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int((width / 2) - int(height / 2) / 2), int(height / 2 + numpy.sqrt(3)*int(height / 2)/2),int((width / 2) - numpy.sqrt(3)*int(height / 2)/2), int(height / 2 + int(height / 2) / 2)):
             cv2.circle(imageorg, (int(distance[0]),int(distance[1])), DRAW_CIRCLE_RADIUS, (0, 250, 200), thickness=1)
-            #osc_send(note_G, "local")
+            note = oscbuildparse.OSCMessage("/notes", None, ["G",392.00,67])
+            osc_send(note, "local")
             #osc_process()
             distance[3] = 1
         # elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int((width / 2) - numpy.sqrt(3)*int(height / 2)/2), int(height / 2 + int(height / 2) / 2),int((width / 2) - (height / 2)),int(height / 2) ):
@@ -156,7 +172,8 @@ for x in range(int(height / 2)):
         #     distance[3] = 1
         elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int((width / 2) - (height / 2)),int(height / 2),int((width / 2) - numpy.sqrt(3)*int(height / 2)/2), int(height / 2 - int(height / 2) / 2) ):
             cv2.circle(imageorg, (int(distance[0]),int(distance[1])), DRAW_CIRCLE_RADIUS, (0,150, 250), thickness=1)
-            #osc_send(note_A, "local")
+            note = oscbuildparse.OSCMessage("/notes", None, ["A",440.00,69])
+            osc_send(note, "local")
             #osc_process()
             distance[3] = 1
         # elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int((width / 2) - numpy.sqrt(3)*int(height / 2)/2), int(height / 2 - int(height / 2) / 2),int((width / 2) - int(height / 2) / 2), int(height / 2 - numpy.sqrt(3)*int(height / 2)/2) ):
@@ -166,12 +183,15 @@ for x in range(int(height / 2)):
         #     distance[3] = 1
         elif (distance[3]==0) and (distance[2] <= x) and inArea(int(distance[0]),int(distance[1]),int(width/2),int(height/2),int((width / 2) - int(height / 2) / 2), int(height / 2 - numpy.sqrt(3)*int(height / 2)/2),int(width / 2),0 ):
             cv2.circle(imageorg, (int(distance[0]),int(distance[1])), DRAW_CIRCLE_RADIUS, (50,250, 250), thickness=1)
-            #osc_send(note_B, "local")
+            note = oscbuildparse.OSCMessage("/notes", None, ["B",493.88,71])
+            osc_send(note, "local")
             #osc_process()
             distance[3] = 1
+
+        osc_process()
     #cv2.circle(imageorg, (389,33), DRAW_CIRCLE_RADIUS, (0, 255, 0), thickness=1)
 
-    cv2.imshow('Overlay',drawingImage)
+    cv2.imshow('image',drawingImage)
     cv2.waitKey(100)
 
 #returns true if point is in triangle ABC
