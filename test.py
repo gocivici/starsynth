@@ -9,7 +9,7 @@ from osc4py3 import oscbuildparse
 #github test
 osc_startup()
 osc_udp_client("127.0.0.1", 57120, "local")
-
+#testing
 #note = oscbuildparse.OSCMessage("/notes", None, ["C",440])
 
 # note_Db = oscbuildparse.OSCMessage("/note_Db", None, ["text"])
