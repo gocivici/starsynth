@@ -6,7 +6,7 @@ from osc4py3.as_eventloop import *
 from osc4py3 import oscbuildparse
 
 #osc
-#github test
+#github test 2
 osc_startup()
 osc_udp_client("127.0.0.1", 57120, "local")
 #testing
